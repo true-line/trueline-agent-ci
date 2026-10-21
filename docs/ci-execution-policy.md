@@ -19,8 +19,8 @@ is a distinct lifecycle object from the source PR that fed it — see
 Allowed runtime actors are:
 
 - the human owner `qwts`;
-- the release/versioning App `chores-dumb` (runtime actor
-  `chores-dumb[bot]`);
+- the release/versioning App `trueline-chores-dumb` (runtime actor
+  `trueline-chores-dumb[bot]`);
 - Dependabot (runtime actor `dependabot[bot]`); and
 - every active App in [`governance/agents.json`](https://github.com/qwts/qwts-agent-org/blob/main/governance/agents.json),
   each of which runs as `<slug>[bot]`.

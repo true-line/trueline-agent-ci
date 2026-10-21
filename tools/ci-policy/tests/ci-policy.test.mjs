@@ -29,7 +29,7 @@ import {
 // stays with the governance manifest, so the reviewed values are pinned here as
 // literals; a change to the sync identity must update the catalog and this file.
 const CODEX_SYNC_BRANCH = 'governance/harness-sync';
-const CODEX_SYNC_BOT = 'chores-dumb';
+const CODEX_SYNC_BOT = 'trueline-chores-dumb';
 const CODEX_SOURCE_REPO = 'agent-sop';
 const syncPullBody = ({ owner, sourceSha, paths }) => [
   `Synchronizes the centrally managed agent-harness environment and its consumer compatibility metadata from [\`${sourceSha.slice(0, 12)}\`](https://github.com/${owner}/${CODEX_SOURCE_REPO}/commit/${sourceSha}).`,
@@ -72,7 +72,7 @@ const releasePullRequest = ({
 test('the human, named automation, and active roster Apps are authorized', () => {
   for (const actor of [
     'qwts',
-    'chores-dumb[bot]',
+    'trueline-chores-dumb[bot]',
     'dependabot[bot]',
     'qwts-codex-agent[bot]',
     'qwts-goose-agent[bot]',
@@ -349,7 +349,7 @@ test('same-repository pull requests keep the actor allow list', () => {
 
 const overlook = releaseLifecycleFor(releaseCatalog, 'true-line/overlook');
 const projection = releasePullRequest({
-  author: 'chores-dumb[bot]',
+  author: 'trueline-chores-dumb[bot]',
   headRef: 'changeset-release/main',
 }).pull_request;
 const source = releasePullRequest({ headRef: 'codex/source-change' }).pull_request;
@@ -375,9 +375,9 @@ test('only the reviewed projection identity classifies as generated release outp
   // Each near miss varies exactly one field of the reviewed identity.
   for (const [reason, pullRequest] of [
     ['author', releasePullRequest({ headRef: 'changeset-release/main' })],
-    ['head ref', releasePullRequest({ author: 'chores-dumb[bot]', headRef: 'release/main' })],
-    ['base ref', releasePullRequest({ author: 'chores-dumb[bot]', headRef: 'changeset-release/main', baseRef: 'next' })],
-    ['head repository', releasePullRequest({ author: 'chores-dumb[bot]', headRef: 'changeset-release/main', headRepository: 'octocat/overlook', fork: true })],
+    ['head ref', releasePullRequest({ author: 'trueline-chores-dumb[bot]', headRef: 'release/main' })],
+    ['base ref', releasePullRequest({ author: 'trueline-chores-dumb[bot]', headRef: 'changeset-release/main', baseRef: 'next' })],
+    ['head repository', releasePullRequest({ author: 'trueline-chores-dumb[bot]', headRef: 'changeset-release/main', headRepository: 'octocat/overlook', fork: true })],
   ]) {
     assert.equal(
       isGeneratedReleaseProjection(releaseRun({ pullRequests: [pullRequest.pull_request] })),
@@ -394,7 +394,7 @@ const managedHarnessFiles = [
 ];
 
 const harnessPullRequest = (overrides = {}) => releasePullRequest({
-  author: 'chores-dumb[bot]',
+  author: 'trueline-chores-dumb[bot]',
   headRef: 'governance/harness-sync',
   body: syncPullBody({
     owner: 'qwts',
@@ -682,7 +682,7 @@ test('the release lifecycle catalog is uniquely configured per governed reposito
 });
 
 test('unauthorized bots and forks cannot claim the generated projection path', () => {
-  const event = releasePullRequest({ author: 'chores-dumb[bot]', headRef: 'changeset-release/main' });
+  const event = releasePullRequest({ author: 'trueline-chores-dumb[bot]', headRef: 'changeset-release/main' });
   assert.throws(
     () => classify({ actor: 'renovate[bot]', triggeringActor: 'renovate[bot]', eventName: 'pull_request', event }),
     /not authorized/,
@@ -692,7 +692,7 @@ test('unauthorized bots and forks cannot claim the generated projection path', (
       actor: 'qwts',
       eventName: 'pull_request',
       event: releasePullRequest({
-        author: 'chores-dumb[bot]',
+        author: 'trueline-chores-dumb[bot]',
         headRef: 'changeset-release/main',
         headRepository: 'octocat/overlook',
         fork: true,

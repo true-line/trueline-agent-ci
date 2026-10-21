@@ -19,7 +19,7 @@ Classify the owner before selecting a merge lifecycle:
 - organization-owned repositories prefer GitHub's native merge queue and must
   report required checks for `merge_group` candidates;
 - user-owned repositories use strict status checks plus the governed
-  `chores-dumb[bot]` ready-branch updater because
+  `trueline-chores-dumb[bot]` ready-branch updater because
   [GitHub limits merge queues to organization-owned repositories](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request-with-a-merge-queue).
 
 Do not change enabled merge methods during this rollout.
@@ -83,13 +83,13 @@ wrong integration leaves an otherwise green PR blocked.
 | `E2E gate` | GitHub Actions | Require this stable verdict, not transient `E2E`. |
 | Docs-governance context | GitHub Actions | Preserve the repository's exact stable context name. |
 
-`chores-dumb[bot]` initiates governed writes but publishes none of these
+`trueline-chores-dumb[bot]` initiates governed writes but publishes none of these
 checks. Retain every additional independent governance, security, compliance,
 and repository-specific required context.
 
 ## Privileged credential consumers
 
-Every `chores-dumb[bot]` consumer that writes repository state or initiates
+Every `trueline-chores-dumb[bot]` consumer that writes repository state or initiates
 another workflow requires both `CHORES_DUMB_CLIENT_ID` and
 `CHORES_DUMB_PRIVATE_KEY`. This includes:
 

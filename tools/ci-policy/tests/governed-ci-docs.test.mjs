@@ -83,7 +83,7 @@ test('user-owned fallback preserves strict exact-SHA evidence and merge methods'
   const contract = `${policy}\n${rollout}`;
 
   assert.match(contract, /limits merge queues to organization-owned repositories/u);
-  assert.match(contract, /governed\s+`chores-dumb\[bot\]` ready-branch updater/u);
+  assert.match(contract, /governed\s+`trueline-chores-dumb\[bot\]` ready-branch updater/u);
   assert.match(contract, /updater changes\s+receive a fresh complete suite/u);
   assert.match(contract, /tree equivalence, and an earlier\s+`main` success do not count/u);
   assert.match(contract, /Do not change enabled merge methods/u);
@@ -97,7 +97,7 @@ test('required contexts are bound to their real publishers', () => {
 
   assert.match(contract, /`CodeQL` \| GitHub Advanced Security App/u);
   assert.match(contract, /`CI` \| GitHub Actions/u);
-  assert.match(contract, /`chores-dumb\[bot\]` initiates governed writes but publishes none/u);
+  assert.match(contract, /`trueline-chores-dumb\[bot\]` initiates governed writes but publishes none/u);
   assert.match(contract, /not transient `E2E`/u);
   for (const publisher of ['GitHub Advanced Security App', 'GitHub Actions']) {
     assert.match(rollout, new RegExp(publisher, 'u'));

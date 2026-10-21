@@ -22,12 +22,12 @@
       "generatedProjection": {
         "baseRef": "main",
         "headRef": "changeset-release/main",
-        "author": "chores-dumb[bot]"
+        "author": "trueline-chores-dumb[bot]"
       },
       "harnessProjection": {
         "baseRef": "main",
         "headRef": "governance/harness-sync",
-        "author": "chores-dumb[bot]",
+        "author": "trueline-chores-dumb[bot]",
         "sourceRepository": "qwts/agent-sop"
       }
     },
@@ -38,12 +38,12 @@
       "generatedProjection": {
         "baseRef": "main",
         "headRef": "changeset-release/main",
-        "author": "chores-dumb[bot]"
+        "author": "trueline-chores-dumb[bot]"
       },
       "harnessProjection": {
         "baseRef": "main",
         "headRef": "governance/harness-sync",
-        "author": "chores-dumb[bot]",
+        "author": "trueline-chores-dumb[bot]",
         "sourceRepository": "qwts/agent-sop"
       }
     },
@@ -54,12 +54,12 @@
       "generatedProjection": {
         "baseRef": "main",
         "headRef": "changeset-release/main",
-        "author": "chores-dumb[bot]"
+        "author": "trueline-chores-dumb[bot]"
       },
       "harnessProjection": {
         "baseRef": "main",
         "headRef": "governance/harness-sync",
-        "author": "chores-dumb[bot]",
+        "author": "trueline-chores-dumb[bot]",
         "sourceRepository": "qwts/agent-sop"
       }
     },
@@ -70,12 +70,12 @@
       "generatedProjection": {
         "baseRef": "main",
         "headRef": "changeset-release/main",
-        "author": "chores-dumb[bot]"
+        "author": "trueline-chores-dumb[bot]"
       },
       "harnessProjection": {
         "baseRef": "main",
         "headRef": "governance/harness-sync",
-        "author": "chores-dumb[bot]",
+        "author": "trueline-chores-dumb[bot]",
         "sourceRepository": "qwts/agent-sop"
       }
     },
