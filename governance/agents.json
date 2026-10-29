@@ -246,6 +246,12 @@
       "harness": "muse",
       "status": "active",
       "note": "Meta Muse agent harness for the true-line organization."
+     },
+    {
+      "slug": "trueline-zcode-agent",
+      "harness": "zcode",
+      "status": "active",
+      "note": "ZCode harness identity; authors localnotes PRs and release automation."
     }
   ]
 }
