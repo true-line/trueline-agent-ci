@@ -87,7 +87,7 @@
       "harnessProjection": null
     },
     {
-      "repository": "qwts/agent-bot-identity",
+      "repository": "true-line/agent-bot-identity",
       "metadataSystem": "none",
       "sourceInputPolicy": "not-applicable",
       "generatedProjection": null,
@@ -164,7 +164,7 @@
       "harnessProjection": null
     },
     {
-      "repository": "qwts/agent-comms",
+      "repository": "true-line/agent-bot-comms",
       "metadataSystem": "none",
       "sourceInputPolicy": "not-applicable",
       "generatedProjection": null,
