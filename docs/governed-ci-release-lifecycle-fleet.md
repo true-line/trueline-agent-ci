@@ -39,8 +39,8 @@ generated-projection identity of each. Coverage is a contract test.
 | `moonsweeper` | None | Not applicable. |
 | `managed-machine` | Git tag via `scripts/release` | Not applicable; tags the sibling managed-machine-config checkout and pins the formula's config seed. |
 | `managed-machine-config` | Tag pushed by managed-machine `scripts/release` | Not applicable; ships as managed-machine's pinned config snapshot. |
-| `agent-comms` | Git tag by its Release workflow after a `scripts/release` PR merges | Not applicable; the workflow tags the merged commit once CI passes on `main`, and the in-repo formula installs from that tag. |
-| `homebrew-tap` | None | Not applicable. agent-comms ships its formula in its own repository, tapped by URL. |
+| `agent-bot-comms` | Git tag by its Release workflow after a `scripts/release` PR merges | Not applicable; the workflow tags the merged commit once CI passes on `main`, and the in-repo formula installs from that tag. |
+| `homebrew-tap` | None | Not applicable. agent-bot-comms ships its formula in its own repository, tapped by URL. |
 | `GeniusBar` | None | Not applicable. Onboarding; no release mechanism yet. |
 
 ## Repair handoff for a Changesets repository
@@ -88,7 +88,7 @@ Repository-specific notes:
 `agent-sop`, `qwts-agent-sop`, `quorum`, `agent-bot-identity`, `codex-rules-editor`,
 `playbook-dashboard`, `agentic-code-analysis`, `localnotes`,
 `universal-agentic-workflow`, `diagram-dreamer`, `jwt-decoder`, `moonsweeper`,
-`managed-machine`, `managed-machine-config`, `agent-comms`, `homebrew-tap`, and
+`managed-machine`, `managed-machine-config`, `agent-bot-comms`, `homebrew-tap`, and
 `GeniusBar` carry `metadataSystem: "none"` and no generated
 projection. They are the negative case: a migration must not add Changesets, a
 release-file check, or a bot exception to them, and their existing lifecycle,
