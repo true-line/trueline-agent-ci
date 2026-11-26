@@ -19,6 +19,22 @@ export function isAllowedActor(actor, allowedActors) {
   return allowedActors.has(actor);
 }
 
+/**
+ * A `schedule` run is attributed to whoever last changed the workflow's cron.
+ * When that is a GitHub App, GitHub reports its bare slug (`<slug>`) rather
+ * than the `<slug>[bot]` login it uses for every other event. Only on that
+ * event, a bare slug resolves to its `[bot]` login when that login is already
+ * allowed; GitHub keeps App names distinct from every other account's login,
+ * so a user cannot claim an App's slug. Anything else is returned unchanged
+ * and checked as is.
+ */
+export function scheduleActor(actor, eventName, allowedActors) {
+  if (eventName !== 'schedule' || typeof actor !== 'string' || actor === '') return actor;
+  if (actor.endsWith('[bot]')) return actor;
+  const appLogin = `${actor}[bot]`;
+  return allowedActors.has(appLogin) ? appLogin : actor;
+}
+
 export function isNativeMergeQueueMainPush({ actor, triggeringActor, eventName, ref }) {
   return (
     actor === MERGE_QUEUE_ACTOR &&
@@ -217,10 +233,10 @@ export function authorizeRun({
     ref,
   });
   if (!nativeMergeQueueMainPush) {
-    if (!isAllowedActor(actor, allowedActors)) {
+    if (!isAllowedActor(scheduleActor(actor, eventName, allowedActors), allowedActors)) {
       throw new Error(`actor ${actor || '<empty>'} is not authorized by CI policy`);
     }
-    if (!isAllowedActor(triggeringActor, allowedActors)) {
+    if (!isAllowedActor(scheduleActor(triggeringActor, eventName, allowedActors), allowedActors)) {
       throw new Error(`triggering actor ${triggeringActor || '<empty>'} is not authorized by CI policy`);
     }
   }

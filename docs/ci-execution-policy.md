@@ -25,6 +25,11 @@ Allowed runtime actors are:
 - every active App in [`governance/agents.json`](https://github.com/qwts/qwts-agent-org/blob/main/governance/agents.json),
   each of which runs as `<slug>[bot]`.
 
+A `schedule` run is attributed to whoever last changed the cron, and GitHub
+reports an App there by its bare slug. On that event only, the action resolves
+a bare slug to `<slug>[bot]` when that login is already allowed; every other
+event and every other name is checked unchanged.
+
 The immutable action checks both actor fields and rejects `github-actions[bot]`,
 GitHub's own `Copilot` actor, external contributors, third parties, and retired
 or unregistered Apps, except a [fork pull request](#fork-pull-requests). Our
