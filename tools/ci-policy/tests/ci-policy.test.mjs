@@ -15,6 +15,7 @@ import {
   pullRequestFromFork,
   releaseLifecycleFor,
   releaseOutputs,
+  scheduleActor,
 } from '../../../.github/actions/ci-policy/classify.mjs';
 import {
   getPullRequest,
@@ -182,6 +183,39 @@ test('authorization-only enforcement protects non-CI entrypoints', () => {
         ref: 'refs/heads/main',
       }),
     /fork/,
+  );
+});
+
+test('a schedule run resolves a roster App bare slug to its bot login only', () => {
+  const scheduled = (actor, overrides = {}) => ({
+    actor,
+    triggeringActor: actor,
+    allowedActors,
+    eventName: 'schedule',
+    event: {},
+    ref: 'refs/heads/main',
+    ...overrides,
+  });
+  assert.equal(scheduleActor('trueline-claude-agent', 'schedule', allowedActors), 'trueline-claude-agent[bot]');
+  assert.doesNotThrow(() => authorizeRun(scheduled('trueline-claude-agent')));
+  assert.doesNotThrow(() => authorizeRun(scheduled('trueline-claude-agent[bot]')));
+  assert.doesNotThrow(() => authorizeRun(scheduled('qwts')));
+
+  // The bare slug is accepted on no other event.
+  for (const eventName of ['workflow_dispatch', 'push', 'merge_group']) {
+    assert.equal(scheduleActor('trueline-claude-agent', eventName, allowedActors), 'trueline-claude-agent');
+    assert.throws(
+      () => authorizeRun(scheduled('trueline-claude-agent', { eventName })),
+      /actor trueline-claude-agent is not authorized/,
+    );
+  }
+  // Retired, unregistered, and non-App names stay refused on a schedule.
+  for (const actor of ['qwts-claude-agent', 'octocat', 'github-actions', 'qwts[bot]', '']) {
+    assert.throws(() => authorizeRun(scheduled(actor)), /is not authorized/, actor);
+  }
+  assert.throws(
+    () => authorizeRun(scheduled('trueline-claude-agent', { triggeringActor: 'octocat' })),
+    /triggering actor octocat is not authorized/,
   );
 });
 
